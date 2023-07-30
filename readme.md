@@ -2,6 +2,6 @@
 
 ![traffic light](./traffic-light.gif)
 
-## state machine
+## State machine
 
 ![state machine](./state-machine.png)
