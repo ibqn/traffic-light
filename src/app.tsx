@@ -2,6 +2,7 @@ import { useMachine } from '@xstate/react'
 import { trafficLight } from '@/machine'
 import { cn } from '@/util'
 import { useEffect, useMemo, useState } from 'react'
+import { Play, Pause } from 'lucide-react'
 
 export const App = () => {
   const [state, send] = useMachine(trafficLight)
@@ -35,7 +36,7 @@ export const App = () => {
   return (
     <div className="flex h-screen items-center justify-center">
       <div className="flex flex-col items-center gap-4">
-        <h2> Traffic light</h2>
+        <h2 className="text-2xl font-bold">Traffic light</h2>
         <div className="flex flex-col items-center gap-2 rounded bg-slate-200 p-4 shadow">
           <div
             className={cn(
@@ -60,18 +61,30 @@ export const App = () => {
           ></div>
         </div>
 
-        <button
-          className="rounded border border-slate-500 px-4 py-1"
-          onClick={() => send('SWITCH')}
-        >
-          switch
-        </button>
-        <button
-          className="rounded border border-slate-500 px-4 py-1"
-          onClick={() => setStopped(!stopped)}
-        >
-          {stopped ? 'start' : 'stop'}
-        </button>
+        <div className="flex w-24 flex-col gap-2">
+          <button
+            className="rounded border border-slate-500 px-4 py-1"
+            onClick={() => send('SWITCH')}
+          >
+            switch
+          </button>
+          <button
+            className="rounded border border-slate-500 px-4 py-1"
+            onClick={() => setStopped(!stopped)}
+          >
+            {stopped ? (
+              <div className="flex flex-row items-center">
+                <Play className="h-4" />
+                <span>start</span>
+              </div>
+            ) : (
+              <div className="flex flex-row items-center">
+                <Pause className="h-4" />
+                <span>stop</span>
+              </div>
+            )}
+          </button>
+        </div>
       </div>
     </div>
   )
