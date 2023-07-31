@@ -9,8 +9,16 @@ export const App = () => {
   const [stopped, setStopped] = useState(false)
 
   const timeoutValue = useMemo(() => {
-    if (state.matches('yellowToRed') || state.matches('yellowToGreen')) {
+    if (state.matches('yellowToRed')) {
       return 2000
+    }
+
+    if (state.matches('yellowToGreen')) {
+      return 1000
+    }
+
+    if (state.matches('red')) {
+      return 4000
     }
 
     return 5000
@@ -19,18 +27,13 @@ export const App = () => {
   useEffect(() => {
     let timeoutId: NodeJS.Timeout
 
-    function handleSwitch() {
-      send('SWITCH')
-      console.log('switch')
-    }
+    const handleSwitch = () => send('SWITCH')
 
     if (!stopped) {
       timeoutId = setTimeout(handleSwitch, timeoutValue)
     }
 
-    return () => {
-      clearTimeout(timeoutId)
-    }
+    return () => clearTimeout(timeoutId)
   })
 
   return (
@@ -72,17 +75,19 @@ export const App = () => {
             className="rounded border border-slate-500 px-4 py-1"
             onClick={() => setStopped(!stopped)}
           >
-            {stopped ? (
-              <div className="flex flex-row items-center">
-                <Play className="h-4" />
-                <span>start</span>
-              </div>
-            ) : (
-              <div className="flex flex-row items-center">
-                <Pause className="h-4" />
-                <span>stop</span>
-              </div>
-            )}
+            <div className="flex flex-row items-center">
+              {stopped ? (
+                <>
+                  <Play className="h-4" />
+                  <span>start</span>
+                </>
+              ) : (
+                <>
+                  <Pause className="h-4" />
+                  <span>stop</span>
+                </>
+              )}
+            </div>
           </button>
         </div>
       </div>
