@@ -78,12 +78,12 @@ export const App = () => {
             <div className="flex flex-row items-center">
               {stopped ? (
                 <>
-                  <Play className="h-4" />
+                  <Play className="-mb-0.5 h-4" />
                   <span>start</span>
                 </>
               ) : (
                 <>
-                  <Pause className="h-4" />
+                  <Pause className="-mb-0.5 h-4" />
                   <span>stop</span>
                 </>
               )}
