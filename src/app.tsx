@@ -25,15 +25,15 @@ export const App = () => {
   }, [state])
 
   useEffect(() => {
-    let timeoutId: NodeJS.Timeout
+    let timeoutId: number
 
-    const handleSwitch = () => send('SWITCH')
+    const handleSwitch = () => send({ type: 'SWITCH' })
 
     if (!stopped) {
-      timeoutId = setTimeout(handleSwitch, timeoutValue)
+      timeoutId = window.setTimeout(handleSwitch, timeoutValue)
     }
 
-    return () => clearTimeout(timeoutId)
+    return () => window.clearTimeout(timeoutId)
   })
 
   return (
@@ -67,7 +67,7 @@ export const App = () => {
         <div className="flex w-24 flex-col gap-2">
           <button
             className="rounded border border-slate-500 px-4 py-1"
-            onClick={() => send('SWITCH')}
+            onClick={() => send({ type: 'SWITCH' })}
           >
             switch
           </button>
