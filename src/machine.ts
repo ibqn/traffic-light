@@ -1,6 +1,10 @@
-import { createMachine } from 'xstate'
+import { setup } from 'xstate'
 
-export const trafficLight = createMachine({
+export const trafficLight = setup({
+  types: {
+    events: {} as { type: 'SWITCH' },
+  },
+}).createMachine({
   id: 'traffic-light',
   initial: 'red',
   states: {
